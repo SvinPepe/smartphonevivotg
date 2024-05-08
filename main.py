@@ -9,6 +9,12 @@ with open("config.txt", "r") as f:
 vivo = True
 
 
+@app.on_message(filters.command("vivo"))
+def vivo(client, message):
+    global vivo
+    vivo = not vivo
+
+
 @app.on_message(filters.me)
 def smatrphonevivo(client, msg):
     if vivo:
