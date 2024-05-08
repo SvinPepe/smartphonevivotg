@@ -1,28 +1,21 @@
 import pyrogram
 from pyrogram import Client, filters
 
-print(pyrogram.__version__)
-app = Client("client", 1, "0")
+with open("config.txt", "r") as f:
+    api_id = f.readline()
+    api_hash = f.readline()
+    app = Client("client", int(api_id), api_hash)
+
 vivo = True
 
 
 @app.on_message(filters.me)
 def smatrphonevivo(client, msg):
-
     if vivo:
-        msg.edit_text(f"{msg.text}\nСмартфон vivo")
-
-
-@app.on_message(filters.me & filters.command("stop", prefixes='/'))
-def stopvivo(client, msg):
-    global vivo
-    vivo = False
-
-
-@app.on_message(filters.me & filters.command("start", prefixes='/'))
-def startvivo(client, msg):
-    global vivo
-    vivo = True
+        if msg.text is not None:
+            msg.edit_text(f"{msg.text}\nСмартфон vivo")
+        else:
+            msg.edit_text("Смартфон vivo")
 
 
 app.run()
